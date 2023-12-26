@@ -42,7 +42,7 @@ export function UiSelectField({
           "rounded border border-slate-300 focus:border-teal-600 px-2 h-10 outline-none",
         )}
       >
-        {options?.map((option) => <option key={option.value}></option>)}
+        {options?.map((option) => <option key={id} value={option.value}>{option.label}</option>)}
       </select>
     </div>
   );

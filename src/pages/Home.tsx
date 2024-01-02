@@ -1,47 +1,27 @@
-import { authControllerGetSessionInfo } from "@/shared/api/generated";
-import { UiButton } from "@/shared/ui/button";
 import UiHeader from "@/shared/ui/header";
-import { UiLink } from "@/shared/ui/link";
-import UiPageSpinner from "@/shared/ui/pageSpinner";
-import { UiSelectField } from "@/shared/ui/selectField";
-import UiSpinner from "@/shared/ui/spinner";
-import { UiTextField } from "@/shared/ui/textField";
-import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { ToggleBlockingButton } from "@/features/toggleBlocking";
+import { Profile } from "@/widgets/profile";
+import { useBlockListQuery } from "@/entities/blockList";
+import { AddBlockItemForm } from "@/features/blockList";
+import { BlockList } from "@/features/blockList";
 
 export default function Home() {
-  const { data } = useQuery({
-    queryKey: ["session"],
-    queryFn: () => authControllerGetSessionInfo(),
-  });
-
+  const { data } = useBlockListQuery({});
   return (
     <>
-      <main className="min-h-screen">
-        <UiHeader right={<div>Hello</div>} />
-        <UiButton variant="primary">hey</UiButton>
-        <UiButton variant="secondary">hey</UiButton>
-        <UiButton variant="outlined">Sign In</UiButton>
-        <UiButton disabled variant="outlined">
-          Sign Up
-        </UiButton>
-        <UiTextField
-          label="Email"
-          inputProps={{ placeholder: "enter email" }}
-        />
-        <UiTextField
-          error="Email"
-          inputProps={{ placeholder: "enter email" }}
-        />
-        <UiTextField inputProps={{ placeholder: "enter email" }} />
-        <UiSelectField
-          selectProps={{}}
-          options={[{ value: "1", label: "options" }]}
-        />
-        <UiLink href={"/"}>Sign In</UiLink>
-        <UiSpinner className="text-teal-600 w-10 h-10" />
-        {/* <UiPageSpinner /> */}
-      </main>
+      <div className={`min-h-screen flex flex-col`}>
+        <UiHeader right={<Profile />} />
+        <div className="grid grid-cols-[200px_1fr]">
+          <aside className="px-5 pt-10">
+            <ToggleBlockingButton />
+          </aside>
+          <main className="pt-10 px-5">
+            <h1 className="text-2xl mb-8">Block List</h1>
+            <AddBlockItemForm />
+            <BlockList className="mt-3" />
+          </main>
+        </div>
+      </div>
     </>
   );
 }

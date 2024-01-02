@@ -16,7 +16,7 @@ export function UiTextField({
 }: UiTextFieldProps) {
   const id = useId();
   return (
-    <div className={clsx(className, "flex flew-col gap-1")}>
+    <div className={clsx(className, "flex flex-col gap-1")}>
       {label && (
         <label htmlFor={id} className="block">
           {label}
